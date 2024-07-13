@@ -9,7 +9,10 @@ die Studierenden direkt Feedback zu ihrer Lösung.
 import numpy as np
 import random
 from scipy.optimize import fsolve
+import warnings
 
+# Filter out the specific RuntimeWarning from scipy.optimize.minpack
+warnings.filterwarnings("ignore", message="The iteration is not making good progress")
 
 def test_stress(stress_student, n=5):
     """
@@ -200,7 +203,7 @@ def test_stress_res(stress_res_student, n=5):
             assert np.isclose(epsv, epsv_sol)
         except AssertionError as e:
             numErrs += 1
-            print("AssertionError - die Funktion hat die korrekte Lösung nicht gefunden. Dies kann an den zufälligen Ausgangswerten liegen, versuch es noch einmal.")
+            print("Die Funktion hat die korrekte Lösung nicht gefunden. Dies kann an den zufälligen Ausgangswerten liegen. Führe die Zelle noch einmal aus.")
         except BaseException:
             numErrs += 1
 
